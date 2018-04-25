@@ -240,5 +240,9 @@ public class Company {
         }
         return valor;
     }
+
+    public ArrayList<Persona> getClientes() {
+        return clientes;
+    }
     
 }

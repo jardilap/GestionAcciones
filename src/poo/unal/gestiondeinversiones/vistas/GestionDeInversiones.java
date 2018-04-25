@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package poo.unal.gestiondeinversiones.vistas;
+import java.util.Scanner;
 import poo.unal.gestiondeinversiones.modelo.*;
 
 /**
@@ -11,14 +12,240 @@ import poo.unal.gestiondeinversiones.modelo.*;
  * @author Juan_Ardila
  */
 public class GestionDeInversiones {
-
+    
+    public static int seleccionarOpcion(){
+       Scanner teclado = new Scanner(System.in);
+       int opcion = -1; 
+       System.out.println("Presione: \n");
+       System.out.println(""
+               + "1. Ingresar Cliente\n"
+               + "2. Ingresar Stock\n"
+               + "3. Ingresar MutualFund\n"
+               + "4. Ingresar DividendStock\n"
+               + "5. Ingresar Cash\n"
+               + "6. Valor total\n"
+               + "7. Valor total Cash\n"
+               + "8. Valor total MutualFund\n"
+               + "9. Valor total DividendStock\n"
+               + "10. Valor total Stock\n"
+               + "11. Beneficio total Cash\n"
+               + "12. beneficio total MutualFund\n"
+               + "13. Beneficio total DividendDStock\n"
+               + "14. Beneficio total Stock\n"
+               + "15. Beneficio total\n"
+               + "16. Valor total 0-20\n"
+               + "17. Valor total 20-40\n"
+               + "18. Valor total 40 o mas\n"
+               + "19. Beneficio total 0-20\n"
+               + "20. Beneficio total 20-40\n"
+               + "21. Beneficio total 40 o mas\n"
+               + "22. Clientes con mayores beneficios\n"
+               + "23. Listado Clientes\n"
+               + "24. Salir\n");
+       opcion = teclado.nextInt();
+       return opcion;  
+    }
+    public static int seleccionarOpcionCliente(Company compa){
+       Scanner teclado = new Scanner(System.in);
+       int opcion = -1; 
+        System.out.println("Seleccione cliente:\n");
+       for(int i = 0; i<compa.getClientes().size();i++){
+            if(compa.getClientes().get(i)!=null)
+                System.out.println(i+ ". " + compa.getClientes().get(i).getNombre() + "\n");
+       }
+       
+       opcion = teclado.nextInt();
+       return opcion;  
+    }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         //Creacion de la compania
-        Company compa = new Company("Ariel");
         
+        int opcion = 0;
+        Scanner teclado = new Scanner(System.in);
+        Company compa = new Company("Ariel");
+        do{
+            opcion=seleccionarOpcion();
+            switch(opcion){
+                case 1:
+                    //Creacion clientes
+                    System.out.print("Ingresa nombre del cliente:\n");
+                    String nombreCliente = teclado.nextLine();
+                    System.out.print("Ingresa apellido del cliente:\n");
+                    String apellidoCliente = teclado.nextLine();
+                    System.out.print("Ingresa email del cliente:\n");
+                    String email = teclado.nextLine();
+                    System.out.print("Ingresa telefono del cliente:\n");
+                    String telefono = teclado.nextLine();
+                    System.out.print("Ingresa edad del cliente:\n");
+                    int edad = teclado.nextInt();
+                    System.out.print("Ingresa cedula del cliente:\n");
+                    String cedula = teclado.next();
+                    Persona p1 = new Persona(nombreCliente, apellidoCliente, email, telefono, edad, cedula);
+                    compa.addCliente(p1);
+                    System.out.println("¡Cliente creado con exito!");
+                    break;
+                case 2:
+                    //Ingresar Stock
+                    System.out.print("Ingrese simbolo de la accion:\n");
+                    String symbol = teclado.next();
+                    System.out.print("Ingrese Costo total:\n");
+                    double totalCost = teclado.nextDouble();
+                    System.out.print("Ingrese precio actual:\n");
+                    double currentPrice = teclado.nextDouble();
+                    System.out.print("Ingrese total shares:\n");
+                    double totalShares = teclado.nextDouble();
+                    Stock si = new Stock(symbol, totalCost, currentPrice, totalShares);
+                    int intCliente;
+                    intCliente = seleccionarOpcionCliente(compa);
+                    compa.getClientes().get(intCliente).addAsset(si);
+                    
+                    break;
+                case 3:
+                    //Ingresar MutualFund
+                    System.out.print("Ingrese simbolo de la accion:\n");
+                    String symbolM = teclado.next();
+                    System.out.print("Ingrese Costo total:\n");
+                    double totalCostM = teclado.nextDouble();
+                    System.out.print("Ingrese precio actual:\n");
+                    double currentPriceM = teclado.nextDouble();
+                    System.out.print("Ingrese total shares:\n");
+                    double totalSharesM = teclado.nextDouble();
+                    MutualFund mi = new MutualFund(symbolM, totalCostM, currentPriceM, totalSharesM);
+                    int intCliente2;
+                    intCliente2 = seleccionarOpcionCliente(compa);
+                    compa.getClientes().get(intCliente2).addAsset(mi);
+                    
+                    break;
+                case 4:
+                    //Ingresar DividendStock
+                    System.out.print("Ingrese simbolo de la accion:\n");
+                    String symbolD = teclado.next();
+                    System.out.print("Ingrese Costo total:\n");
+                    double totalCostD = teclado.nextDouble();
+                    System.out.print("Ingrese precio actual:\n");
+                    double currentPriceD = teclado.nextDouble();
+                    System.out.print("Ingrese total shares:\n");
+                    double totalSharesD = teclado.nextDouble();
+                    System.out.print("Ingrese dividendos:\n");
+                    double dividens = teclado.nextDouble();
+                    DividendStock di = new DividendStock(dividens, symbolD, totalCostD, currentPriceD, totalSharesD);
+                    int intCliente3;
+                    intCliente3 = seleccionarOpcionCliente(compa);
+                    compa.getClientes().get(intCliente3).addAsset(di);
+                    
+                    break;
+                case 5:
+                    //Ingresar Cash
+                    System.out.print("Ingrese monto:\n");
+                    double amount = teclado.nextDouble();
+                    Cash ci = new Cash(amount);
+                    int intCliente4;
+                    intCliente4 = seleccionarOpcionCliente(compa);
+                    compa.getClientes().get(intCliente4).addAsset(ci);
+                    
+                    break;
+                case 6:
+                    //Valor total
+                    System.out.println("Valor total: " + compa.valorTotal());
+        
+                    
+                    break;
+                case 7:
+                    //Valor total Cash
+                    System.out.println("Valor total Cash: " + compa.valorCashValue());
+        
+                    break;
+                case 8:
+                    //Valor total MutualFund
+                    System.out.println("Valor total MutualFund: " + compa.valorMutualValue());
+        
+                    break;
+                case 9:
+                    //Valor total DividendStock
+                    System.out.println("Valor total DividendStock: " + compa.valorDividendValue());
+        
+                    break;
+                case 10:
+                    //Valor total Stock
+                    System.out.println("Valor total Stock: " + compa.valorStockValue());
+        
+                    break;
+                case 11:
+                    //Beneficio total Cash
+                    System.out.println("Beneficio total Cash: " + compa.valorCashProfit());
+        
+                    break;
+                case 12:
+                    //Beneficio total MutualFund
+                    System.out.println("Beneficio total MutualFund: " + compa.valorMutualProfit());
+        
+                    break;
+                case 13:
+                    //Beneficio total DividendStock
+                    System.out.println("Beneficio total DividendStock: " + compa.valorDividendProfit());
+        
+                    break;
+                case 14:
+                    //Beneficio total Stock
+                    System.out.println("Beneficio total Stock: " + compa.valorStockProfit());
+        
+                    break;
+                case 15:
+                    //Beneficio Total
+                    System.out.println("Beneficio total: " + compa.beneficioTotal());
+        
+                    break;
+                case 16:
+                    //Valor total 0-20 años
+                    System.out.println("Valor total 0-20: " + compa.valorTotalJoven());
+        
+                    break;
+                case 17:
+                    //Valor total 20-40 años
+                    System.out.println("Valor total 20-40: " + compa.valorTotalAdulto());
+        
+                    break;
+                case 18:
+                    //Valor total 40 o más años
+                    System.out.println("Valor total 40-: " + compa.valorTotalAnciano());
+        
+                    break;
+                case 19:
+                    //Beneficio total 0-20 años
+                    System.out.println("Beneficio total 0-20: " + compa.beneficioTotalJoven());
+        
+                    break;
+                case 20:
+                    //Beneficio total 20-40 años
+                    System.out.println("Beneficio total 20-40: " + compa.beneficioTotalAdulto());
+        
+                    break;
+                case 21:
+                    //beneficio total 40 o más años
+                    System.out.println("Beneficio total 40-: " + compa.beneficioTotalAnciano());
+        
+                    break;
+                case 22:
+                    //Cliente mayores beneficios
+                    System.out.println("Cliente mayores beneficios: "
+                        + compa.mayoresBeneficios().getNombre() + " " 
+                        + compa.mayoresBeneficios().getApellido() + " con cedula: " 
+                        + compa.mayoresBeneficios().getCedula());
+        
+                    break;
+                case 23:
+                    //Listado Clientes
+                    System.out.println("Listado clientes:");
+                    compa.ListadoCLientes();
+                    break;
+                default:
+                    break;
+            }
+        }while(opcion!=24);
+        /*
         //Creacion clientes
         Persona p1 = new Persona("Juan", "Lopez", "jardilap@unal.edu.co", "3107654567", 21, "1234567890");
         Persona p2 = new Persona("Juanito", "Anchoa", "jarap@unal.edu.co", "3109854567", 78, "1019147372");
@@ -104,6 +331,7 @@ public class GestionDeInversiones {
         
         //Metodos
         
+        
         System.out.println("Valor total: " + compa.valorTotal());
         System.out.println("Valor total Cash: " + compa.valorCashValue());
         System.out.println("Valor total MutualFund: " + compa.valorMutualValue());
@@ -126,6 +354,7 @@ public class GestionDeInversiones {
                 + compa.mayoresBeneficios().getCedula());
         System.out.println("Listado:");
         compa.ListadoCLientes();
+        */
         
         
         
