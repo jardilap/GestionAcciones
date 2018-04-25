@@ -101,6 +101,7 @@ public class GestionDeInversiones {
         compa.addCliente(p1);
         
         
+        
         //Metodos
         
         System.out.println("Valor total: " + compa.valorTotal());
@@ -119,7 +120,10 @@ public class GestionDeInversiones {
         System.out.println("Beneficio total 0-20: " + compa.beneficioTotalJoven());
         System.out.println("Beneficio total 20-40: " + compa.beneficioTotalAdulto());
         System.out.println("Beneficio total 40-: " + compa.beneficioTotalAnciano());
-        System.out.println("Cliente mayores beneficios: " + compa.mayoresBeneficios());
+        System.out.println("Cliente mayores beneficios: "
+                + compa.mayoresBeneficios().getNombre() + " " 
+                + compa.mayoresBeneficios().getApellido() + " con cedula: " 
+                + compa.mayoresBeneficios().getCedula());
         System.out.println("Listado:");
         compa.ListadoCLientes();
         

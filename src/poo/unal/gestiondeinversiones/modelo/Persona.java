@@ -19,11 +19,11 @@ public class Persona {
     private String telefono;
     private int edad;
     private String cedula;
-    private ArrayList<Asset> activos;
-    private ArrayList<Cash> cash;
-    private ArrayList<DividendStock> dividendos;
-    private ArrayList<MutualFund> mutual;
-    private ArrayList<Stock> accion;
+    private final ArrayList<Asset> activos;
+    private final ArrayList<Cash> cash;
+    private final ArrayList<DividendStock> dividendos;
+    private final ArrayList<MutualFund> mutual;
+    private final ArrayList<Stock> accion;
     
 
     public Persona(String nombre, String apellido, String email, String telefono, int edad, String cedula) {
@@ -33,20 +33,38 @@ public class Persona {
         this.telefono = telefono;
         this.edad = edad;
         this.cedula = cedula;
+        this.activos = new ArrayList<>();
+        this.cash = new ArrayList<>();
+        this.dividendos = new ArrayList<>();
+        this.mutual = new ArrayList<>();
+        this.accion = new ArrayList<>();
     }
     
     public boolean addAsset (Asset a){
         
-            if(a!=null){
-                if(activos.size()<10){
-                activos.add(a);
-                return true;
+            
+                if(activos.size()<10 || activos.isEmpty()){
+                    activos.add(a);
+                    
+                    try{
+                        cash.add((Cash) a);
+                    }catch(ClassCastException e){
+                        try{
+                            dividendos.add((DividendStock) a);
+                        }catch(ClassCastException i){
+                            try{
+                                mutual.add((MutualFund) a);
+                            }catch(ClassCastException o){
+                                accion.add((Stock) a);
+                            }
+                        }
+                    }
+                    
+                    return true;
                 }else{
                     return false;
                 }
-            }else{
-                return false;
-            }
+            
         
     }
     

@@ -16,6 +16,7 @@ public class Company {
 
     public Company(String NombreCompany) {
         this.NombreCompany = NombreCompany;
+        this.clientes = new ArrayList<>();
     }
     
     public boolean addCliente(Persona c){
@@ -162,7 +163,7 @@ public class Company {
             }
             return valor;
         }catch(NullPointerException e){
-            return 0.0;
+            return 5.0;
         }
     }
     
